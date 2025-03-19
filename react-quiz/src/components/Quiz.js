@@ -3,10 +3,16 @@ import Question from './Question'
 
 const Quiz = () => {
     console.log("render");
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [state, setState] = useState({
+        currentQuestionIndex: 0,
+        questions: []
+    });
     const testClick = () => {
         console.log('testClick');
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setState({
+            ...state,
+            currentQuestionIndex: state.currentQuestionIndex + 1,
+        });
     };
     return (
         <div className="quiz">
@@ -15,7 +21,7 @@ const Quiz = () => {
                     Question 1/8
                 </div>
                 <Question />
-                <div className="next-button" onClick={testClick}>Next question {currentQuestionIndex}</div>
+                <div className="next-button" onClick={testClick}>Next question {state.currentQuestionIndex}</div>
             </div>
         </div>
     )
