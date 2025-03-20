@@ -1,18 +1,24 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import Question from './Question'
 
+const initialState = {
+    currentQuestionIndex: 0,
+    questions: [],
+};
+
+const reducer = (state, action) => {
+    if (action.type === 'NEXT_QUESTION') {
+        return {...state, currentQuestionIndex: state.currentQuestionIndex + 1};
+    }
+    return state;
+};
+
 const Quiz = () => {
-    console.log("render");
-    const [state, setState] = useState({
-        currentQuestionIndex: 0,
-        questions: []
-    });
+    const [state, dispatch] = useReducer(reducer, initialState);
+    console.log("render", state);
     const testClick = () => {
         console.log('testClick');
-        setState({
-            ...state,
-            currentQuestionIndex: state.currentQuestionIndex + 1,
-        });
+        dispatch({type: "NEXT_QUESTION"});
     };
     return (
         <div className="quiz">
